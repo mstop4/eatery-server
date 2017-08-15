@@ -3,17 +3,18 @@ var request = require('request');
 var router = express.Router();
 
 /* GET map json. */
-router.get('/', function(req, res, next) {
+router.get('/', function(routerReq, routerRes, next) {
 
-  var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=43.644359,-79.3951126&type=restaurant&radius=200&key=AIzaSyAlibWfdCwp1PWyXZtVVNlVd_BfU39Oj8o"
+  console.log(process.env.GOOGLEMAPS_API_KEY);
+  var url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${routerReq.query.lat},${routerReq.query.lng}&type=restaurant&radius=200&key=${process.env.GOOGLEMAPS_APIKEY}`
 
-  console.dir(req)
+  console.dir(routerReq.query);
 
-  request(url, function (error, response, body) {
+  request(url, function (error, requestRes, body) {
     console.log('error:', error); // Print the error if one occurred
-    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    response.setHeader('Content-Type', 'application/json');
-    response.send(body);
+    console.log('statusCode:', requestRes && requestRes.statusCode); // Print the response status code if a response was received
+    routerRes.setHeader('Content-Type', 'application/json');
+    routerRes.send(body);
     });
 });
 
