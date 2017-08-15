@@ -1,0 +1,15 @@
+{
+  "name": "schemas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Migration.js",
+  "scripts": {
+    "start": "node Migration.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^4.11.7"
+  }
+}
