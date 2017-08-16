@@ -12,6 +12,8 @@ ls -ld /data/db/
 
 sudo chmod 0755 /data/db && sudo chown $USER /data/db
 
+mongod
+
 mongo
 
 use eatery

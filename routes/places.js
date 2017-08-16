@@ -6,15 +6,15 @@ Favourite = require("../schemas/favouritesSchema");
 User = require("../schemas/userSchema");
 
 /* GET map json. */
-router.get("/", function(req, res, next) {
-  var url =
-    "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=43.6446318,-79.3950034&type=restaurant&radius=150&key=AIzaSyAlibWfdCwp1PWyXZtVVNlVd_BfU39Oj8o";
-
-  request(url, function(error, response, body) {
-    console.log("error:", error); // Print the error if one occurred
-    console.log("statusCode:", response && response.statusCode); // Print the response status code if a response was received
-    res.setHeader("Content-Type", "application/json");
-    res.send(body);
+router.get('/', function(routerReq, routerRes, next) {
+  
+    var url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${routerReq.query.lat},${routerReq.query.lng}&type=restaurant&radius=${routerReq.query.radius}&key=${process.env.GOOGLEMAPS_APIKEY}`;
+  
+    request(url, function (error, requestRes, body) {
+      console.log('error:', error); // Print the error if one occurred
+      console.log('statusCode:', requestRes && requestRes.statusCode); // Print the response status code if a response was received
+      routerRes.setHeader('Content-Type', 'application/json');
+      routerRes.send(body);
   });
 });
 
