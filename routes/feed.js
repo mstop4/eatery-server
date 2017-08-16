@@ -7,16 +7,6 @@ var instagramAPI = new InstagramAPI(accessToken);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
-  instagramAPI.userSelf().then(function(result) {
-    console.log(result.data); // user info 
-    console.log(result.limit); // api limit 
-    console.log(result.remaining) // api request remaining 
-    res.render('index', { title: 'Instagram Photos'});
-  }, function(err){
-    console.log(err); // error info 
-  });
-  
   res.render('index', { title: 'Express' });
 });
 
