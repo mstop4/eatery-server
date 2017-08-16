@@ -9,8 +9,10 @@ var cors = require('cors');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var places = require('./routes/places');
+var feed = require('./routes/feed')
 
 var app = express();
+var api = require('instagram-node').instagram();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,6 +37,42 @@ app.use(cors(corsOptions));
 app.use('/', index);
 app.use('/users', users);
 app.use('/places', places);
+app.use('/feed', feed);
+
+// ACCESS_TOKEN for development testing
+api.use({
+  access_token: process.env.ACCESS_TOKEN
+});
+
+// CLIENT ID AND CLIENT_SECRET for development testing
+api.use({ 
+  client_id: process.env.CLIENT_ID,
+  client_secret: process.env.CLIENT_SECRET
+});
+
+const redirect_uri = 'http://localhost:3000/feed';
+
+exports.authorize_user = (req, res) => {
+  res.redirect(api.get_authorization_url(redirect_uri, { scope: ['public_content'], state: 'a state' }));
+};
+
+exports.handleauth = (req, res) => {
+  api.authorize_user(req.query.code, redirect_uri, (err, result) => {
+    if (err) {
+      console.log(err.body);
+      res.send("Didn't work");
+    } else {
+      console.log('Yay! Access token is ' + result.access_token);
+      res.send('You made it!!');
+    }
+  });
+};
+
+// This is where you would initially send users to authorize
+app.get('/authorize_user', exports.authorize_user);
+// This is your redirect URI
+app.get('/handleauth', exports.handleauth);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -53,5 +91,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 module.exports = app;
