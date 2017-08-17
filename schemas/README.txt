@@ -1,3 +1,19 @@
+SIMPLE mongo commands 
+
+show dbs -- displays all databases created
+
+use eatery -- switches to eatery database
+
+show collections -- shows all collections "tables" inside database
+
+db.collectionName.find() -- shows all data objects inside collection(table)
+
+CRUD operations can be found on website:
+
+https://docs.mongodb.com/manual/crud/
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 brew update
 
 brew install mongodb
@@ -11,20 +27,22 @@ ls -ld /data/db/
         drwxr-xr-x  X user  wheel  XXX Date Time /data/db/
 
 sudo chmod 0755 /data/db && sudo chown $USER /data/db
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-mongod
+START UP MONGODB SERVERS
 
-mongo
+terminal 1 - mongod
 
-use eatery
+terminal 2 - mongo
 
-db.test.insert({"message":"hello world"})
+use eatery -- switches to eatery database
+
+db.test.insert({"message":"hello world"}) -- inserts dummy message, automatically creates objectid
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 npm install
 
 npm start
 
-
-
-
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
