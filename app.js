@@ -9,6 +9,7 @@ var cors = require('cors');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var places = require('./routes/places');
+var favourite = require('./routes/favourite')
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use(cors(corsOptions));
 app.use('/', index);
 app.use('/users', users);
 app.use('/places', places);
+app.use('/favourite', favourite);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
