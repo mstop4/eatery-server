@@ -5,73 +5,68 @@ Favourite = require("../schemas/favouritesSchema");
 User = require("../schemas/userSchema");
 
 //will add the favourite place and user email to the table, if success, will send 'Saved' as response
-router.post("/:user_email/:restaurant_name", (req, res) => {
-  let promise = new Promise((resolve, reject) => {
-    resolve(getUser(req.params.user_email));
-  })
-  promise.then((user) => {
+router.post("/like/:user_email/:restaurant_name", (req, res) => {
+  getUser(req.params.user_email).then(user => {
     let place = new Favourite({
       name: req.params.restaurant_name,
-      user: user._id
+      user_id: user._id
     });
     place.save();
     res.send("Saved");
-  })
+  });
 });
 
 //will check if the place were already favourited by the user, return true if has already and false if not
 router.get("/liked/:user_email/:restaurant_name", (req, res) => {
-  let promise = new Promise(function(resolve, reject) {
-    resolve(getUser(req.params.user_email))
-  })
-  promise.then((user) => {
-    console.log(user);
-    promise = new Promise((resolve,reject) => {
-      resolve(getFavourite(
-        req.params.restaurant_name,
-        req.params.user_email
-      ));
-      promise.then((favourite) => {
-        if(favourite) {
-          res.send('true')
-        } else {
-          res.send('false')
-        }
-      })
-    })
-  })
+  getUser(req.params.user_email).then(user => {
+    getFavourite(req.params.restaurant_name, user._id).then(favourite => {
+      console.log(favourite);
+      if (favourite != null) {
+        res.send("true");
+      } else {
+        res.send("false");
+      }
+    });
+  });
+});
+
+//will list all favourites from the user
+router.get("/list/:user_email", (req, res) => {
+  getUser(req.params.user_email).then(user => {
+    if (user != null) {
+      getFavouritesList(user._id).then(favourites => {
+        res.send(favourites);
+      });
+    }
+  });
 });
 
 //will remove the favourite from the user, if success you have 'deleted as response'
 router.delete("/delete/:user_email/:restaurant_name", (req, res) => {
-  Favourite.remove({'email':req.params.user_email,'name':req.params.restaurant_name}, (err) => {
-    if(!err) {
-      res.send('deleted')
-    } else {
-      console.log(err);
-    }
-  })
+  getUser(req.params.user_email).then(user => {
+    Favourite.findOneAndRemove({
+      user_id: user._id,
+      name: req.params.restaurant_name
+    }).exec(() => {
+      res.send("deleted");
+    });
+  });
 });
 
 function getUser(email) {
-  return User.findOne({ email: email }, (err,user) => {
-    if(err) {
-      console.log(err);
-    }
-    return user
-  })
-
-
+  return User.findOne({ email: email }).exec();
 }
 
-function getFavourite(name, email) {
-  Favourite.find({ name: name, email: email }, function(err, favourite) {
-    if(err) {
-      console.log(err);
-    } else {
-      return favourite;
-    }
-  });
+function getFavourite(name, id) {
+  return Favourite.findOne({ name: name, user_id: id })
+    .populate("user_id")
+    .exec();
 }
+
+function getFavouritesList(id) {
+  return Favourite.find({ user_id: id }).populate("user_id").exec();
+}
+
+router.get("/aaa", (req, res) => {});
 
 module.exports = router;
