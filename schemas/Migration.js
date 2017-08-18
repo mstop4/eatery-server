@@ -6,15 +6,24 @@ var User = require('./userSchema'),
 
 
 var victor = new User({
-    name: "Victor"
+    name: "Victor",
+    email: "vmfesta@gmail.com",
+    password: "test"
 });
 
-victor.save();
+var john = new User({
+    name: "John",
+    email: "jpftolentino@gmail.com",
+    pass: "test"
+});
 
 var john = new Friend({
-    name: "John",
     user_id: victor._id,
+    name: "John",
+    email: "jpftolentino@gmail.com"    
 })
+
+victor.save();
 
 john.save();
 
