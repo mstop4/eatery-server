@@ -11,7 +11,7 @@ var users = require('./routes/users');
 var places = require('./routes/places');
 var favourite = require('./routes/favourite');
 var details = require('./routes/details');
-var friendslist = require('./routes/friendslist');
+var friends = require('./routes/friends');
 var facebook = require('./routes/facebook');
 
 var app = express();
@@ -41,7 +41,7 @@ app.use('/users', users);
 app.use('/places', places);
 app.use('/favourite', favourite);
 app.use('/details', details);
-app.use('/friendslist', friendslist);
+app.use('/friends', friends);
 app.use('/facebook', facebook);
 
 // catch 404 and forward to error handler

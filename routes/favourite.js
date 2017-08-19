@@ -67,6 +67,4 @@ function getFavouritesList(id) {
   return Favourite.find({ user_id: id }).populate("user_id").exec();
 }
 
-router.get("/aaa", (req, res) => {});
-
 module.exports = router;
