@@ -27,11 +27,6 @@ victor.save();
 
 john.save();
 
-var pizzaiolo = new Favourite({
-    name: "Pizzaiolo",
-    user_id: victor._id,
-})
-
 pizzaiolo.save();
 
 User.find({}, function(err, docs) {
