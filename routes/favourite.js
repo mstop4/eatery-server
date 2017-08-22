@@ -5,11 +5,12 @@ Favourite = require("../schemas/favouritesSchema");
 User = require("../schemas/userSchema");
 
 //will add the favourite place and user email to the table, if success, will send 'Saved' as response
-router.post("/like/:user_email/:restaurant_name", (req, res) => {
+router.post("/:user_email/:place_id", (req, res) => {
   getUser(req.params.user_email).then(user => {
     let place = new Favourite({
-      name: req.params.restaurant_name,
-      user_id: user._id
+      place_id: req.params.place_id,
+      user_id: user._id,
+      email: req.params.user_email
     });
     place.save();
     res.send("Saved");
@@ -17,7 +18,7 @@ router.post("/like/:user_email/:restaurant_name", (req, res) => {
 });
 
 //will check if the place were already favourited by the user, return true if has already and false if not
-router.get("/liked/:user_email/:restaurant_name", (req, res) => {
+router.get("/:user_email/:place_id", (req, res) => {
   getUser(req.params.user_email).then(user => {
     getFavourite(req.params.restaurant_name, user._id).then(favourite => {
       console.log(favourite);
@@ -42,7 +43,7 @@ router.get("/list/:user_email", (req, res) => {
 });
 
 //will remove the favourite from the user, if success you have 'deleted as response'
-router.delete("/delete/:user_email/:restaurant_name", (req, res) => {
+router.delete("/delete/:user_email/:place_id", (req, res) => {
   getUser(req.params.user_email).then(user => {
     Favourite.findOneAndRemove({
       user_id: user._id,

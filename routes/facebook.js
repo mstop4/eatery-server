@@ -26,9 +26,9 @@ router.get('/', function(req, res, next) {
 });
 
 //localhost:3002/facebook
-router.post('/:newusername/', function(req, res, next) {
+router.post('/:newemail/', function(req, res, next) {
   let name = req.body.name;
-  let email = req.params.newuseremail;
+  let email = req.params.newemail;
   let picture = req.body.picture;
   console.log(req.body);
   getUser(email).then(user => {
