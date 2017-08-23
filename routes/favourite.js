@@ -24,6 +24,18 @@ router.post("/:user_email/:place_id", (req, res) => {
   });
 });
 
+//will list all favourites from the user
+router.get("/list/:user_email", (req, res) => {
+  getUser(req.params.user_email).then(user => {
+    if (user != null) {
+      getFavouritesList(req.params.user_email).then(favourites => {
+        console.log(favourites);
+        res.send(favourites);
+      });
+    }
+  });
+});
+
 //will check if the place were already favourited by the user, return true if has already and false if not
 router.get("/:user_email/:place_id", (req, res) => {
   getUser(req.params.user_email).then(user => {
@@ -39,17 +51,6 @@ router.get("/:user_email/:place_id", (req, res) => {
   });
 });
 
-//will list all favourites from the user
-router.get("/list/:user_email", (req, res) => {
-  getUser(req.params.user_email).then(user => {
-    if (user != null) {
-      getFavouritesList(req.params.user_email).then(favourites => {
-        console.log(favourites);
-        res.send(favourites);
-      });
-    }
-  });
-});
 
 //will remove the favourite from the user, if success you have 'deleted as response'
 router.delete("/delete/:user_email/:place_id", (req, res) => {
