@@ -43,7 +43,8 @@ router.get("/:user_email/:place_id", (req, res) => {
 router.get("/list/:user_email", (req, res) => {
   getUser(req.params.user_email).then(user => {
     if (user != null) {
-      getFavouritesList(user._id).then(favourites => {
+      getFavouritesList(req.params.user_email).then(favourites => {
+        console.log(favourites);
         res.send(favourites);
       });
     }
@@ -70,8 +71,8 @@ function getFavourite(email, place_id) {
   return Favourite.findOne({ email: email, place_id: place_id }).exec();
 }
 
-function getFavouritesList(id) {
-  return Favourite.find({ user_id: id }).populate("user_id").exec();
+function getFavouritesList(email) {
+  return Favourite.find({ email: email }).exec();
 }
 
 module.exports = router;
