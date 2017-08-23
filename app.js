@@ -13,6 +13,7 @@ var favourite = require('./routes/favourite');
 var details = require('./routes/details');
 var friends = require('./routes/friends');
 var facebook = require('./routes/facebook');
+var rates = require('./routes/rates');
 
 var app = express();
 
@@ -43,6 +44,7 @@ app.use('/favourite', favourite);
 app.use('/details', details);
 app.use('/friends', friends);
 app.use('/facebook', facebook);
+app.use('/rates', rates);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
