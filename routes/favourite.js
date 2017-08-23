@@ -7,24 +7,32 @@ User = require("../schemas/userSchema");
 //will add the favourite place and user email to the table, if success, will send 'Saved' as response
 router.post("/:user_email/:place_id", (req, res) => {
   getUser(req.params.user_email).then(user => {
-    let place = new Favourite({
-      place_id: req.params.place_id,
-      user_id: user._id,
-      email: req.params.user_email
+    getFavourite(req.params.user_email, req.params.place_id).then(favourite => {
+    console.log(favourite);
+      if (favourite == null) {
+        let place = new Favourite({
+          place_id: req.params.place_id,
+          user_id: user._id,
+          email: req.params.user_email
+        });
+        place.save();
+        res.send("Saved");
+      } else {
+        res.send("Exists");
+      }
     });
-    place.save();
-    res.send("Saved");
   });
 });
 
 //will check if the place were already favourited by the user, return true if has already and false if not
 router.get("/:user_email/:place_id", (req, res) => {
   getUser(req.params.user_email).then(user => {
-    getFavourite(req.params.restaurant_name, user._id).then(favourite => {
-      console.log(favourite);
+    getFavourite(req.params.user_email, req.params.place_id).then(favourite => {
       if (favourite != null) {
-        res.send("true");
+        console.log("found");
+        res.send(favourite);
       } else {
+        console.log("not found");
         res.send("false");
       }
     });
@@ -46,8 +54,8 @@ router.get("/list/:user_email", (req, res) => {
 router.delete("/delete/:user_email/:place_id", (req, res) => {
   getUser(req.params.user_email).then(user => {
     Favourite.findOneAndRemove({
-      user_id: user._id,
-      name: req.params.restaurant_name
+      email: req.params.user_email,
+      place_id: req.params.place_id
     }).exec(() => {
       res.send("deleted");
     });
@@ -58,10 +66,8 @@ function getUser(email) {
   return User.findOne({ email: email }).exec();
 }
 
-function getFavourite(name, id) {
-  return Favourite.findOne({ name: name, user_id: id })
-    .populate("user_id")
-    .exec();
+function getFavourite(email, place_id) {
+  return Favourite.findOne({ email: email, place_id: place_id }).exec();
 }
 
 function getFavouritesList(id) {
