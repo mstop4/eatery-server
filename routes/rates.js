@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 Rate = require("../schemas/ratingSchema")
-User = require("../schemas/userSchema"); 
+User = require("../schemas/userSchema");
 Place = require("../schemas/placeSchema")
 
 
@@ -19,7 +19,7 @@ router.post('/save/:email/:googleId/:price/:quality/:portions', function(req, re
         })
     })
     res.send('saved');
-    
+
 });
 
 router.get('/:googleId', function(req, res, next) {
@@ -28,16 +28,6 @@ router.get('/:googleId', function(req, res, next) {
             res.send(rate)
         })
     })
-});
-
-
-router.post('/aaaa', function(req, res, next) {
-    let place = new Place({
-        google_id:"shit"
-    })
-    console.log('aaa');
-    place.save();
-    res.send('saved')
 });
 
 function getUser(email) {
