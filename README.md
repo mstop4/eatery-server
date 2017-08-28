@@ -36,27 +36,8 @@ I narrow down the searches myself and share with my friends to vote.
 ## Additional Features
 * User can favourite/save a restaurant on his profile
 
-## Database
-* Mongoosejs - http://mongoosejs.com/docs/guide.html
-* Entities
-- Users
-- Favourites
-- Friends
-- Votes
+## Tech Stack
 
-## Server
-* Node.js / Express.js API
-
-## UI Frameworks
-* Sass/Bootstrap
-
-## Front-End Framework
-* React.js + http://foundation.zurb.com/building-blocks/blocks/rounded-social-buttons.html
-
-## Design
-* Photoshop CS6
-
-## Deployment
-* Digitial Ocean & GoDaddy
-
-## Wireframes
+- Mongoose / MongoDB
+- Express.js
+- (fill in further)
