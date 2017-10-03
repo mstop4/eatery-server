@@ -11,6 +11,8 @@ What should we get for lunch, guys?
 * Victor Festa
 * John Tolentino
 
+[![dependencies Status](https://david-dm.org/mstop4/eatery-server/status.svg)](https://david-dm.org/mstop4/eatery-server)
+
 ## User Stories
 
 ```
