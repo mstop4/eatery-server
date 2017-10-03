@@ -2,6 +2,8 @@
 
 What should we get for lunch, guys?
 
+[![dependencies Status](https://david-dm.org/mstop4/eatery-server/status.svg)](https://david-dm.org/mstop4/eatery-server)
+
 **[Eatery Client](https://github.com/mstop4/eatery-client)**
 
 ## Developed by
@@ -10,8 +12,6 @@ What should we get for lunch, guys?
 * Arnold Chan
 * Victor Festa
 * John Tolentino
-
-[![dependencies Status](https://david-dm.org/mstop4/eatery-server/status.svg)](https://david-dm.org/mstop4/eatery-server)
 
 ## User Stories
 
