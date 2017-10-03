@@ -40,6 +40,6 @@ I narrow down the searches myself and share with my friends to vote.
 
 ## Tech Stack
 
-- Mongoose / MongoDB
+- Mongoose
+    - MongoDB
 - Express.js
-- (fill in further)
